@@ -1,5 +1,5 @@
 import pygame as pg
-from states import playing
+from stages import playing
 
 
 class Game:
