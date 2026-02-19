@@ -1,5 +1,6 @@
 import pygame as pg
 import config
+from objects import player
 
 
 class Playing:
@@ -7,6 +8,7 @@ class Playing:
         pass
         self.clock = pg.time.Clock()
         self.cf = config.Config()
+        self.player = player.Player()
 
     def play(self):
         if not self.handle_events():
@@ -17,6 +19,9 @@ class Playing:
 
     def draw(self):
         self.cf.screen.fill((0, 0, 0))
+
+        self.player.movement()
+        self.player.draw()
 
         pg.display.flip()
 
