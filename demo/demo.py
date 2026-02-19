@@ -5,7 +5,6 @@ pg.init()
 screen = pg.display.set_mode((800, 600))
 clock = pg.time.Clock()
 running = True
-
 player = pg.Rect(50, 50, 100, 100)
 enemy = pg.Rect(750, 50, 100, 100)
 
