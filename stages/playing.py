@@ -19,8 +19,8 @@ class Playing:
 
     def draw(self):
         self.cf.screen.fill((0, 0, 0))
-
-        self.player.movement()
+        self.platform = self.cf.height
+        self.player.movement(self.platform)
         self.player.draw()
 
         pg.display.flip()

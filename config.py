@@ -13,7 +13,16 @@ class Config:
     # fps
     fps = 60
 
+    # Environment variables
+
+    gravity_pull_speed = 2
+
     # player
-    player = pg.Rect(width / 4, 4 * height / 5, 50, 50)
+
+    player_height = 50
+    player_width = 50
+
+    player = pg.Rect(width / 4, 4 * height / 5, player_height, player_width)
     player_visual = (150, 20, 92)
     player_speed = 5
+    player_jump_height = 50
