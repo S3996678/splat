@@ -18,7 +18,7 @@ class Playing:
         return True
 
     def draw(self):
-        self.cf.screen.fill((0, 0, 0))
+        self.cf.screen.fill((173, 216, 230))
         self.platform = self.cf.height
         self.player.movement(self.platform)
         self.player.draw()
@@ -31,5 +31,4 @@ class Playing:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return False
-
         return True
