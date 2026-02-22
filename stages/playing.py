@@ -9,9 +9,11 @@ class Playing:
         self.clock = pg.time.Clock()
         self.cf = config.Config()
         self.player = player.Player()
-        self.platformm = platform.Platform([200, 200])
-        self.pl2 = platform.Platform([249, 200])
+        # flooring
         self.floor = floor.Floor(1300)
+
+        # this is just for a temporary platform testing remove later
+        self.tmp_plat = [platform.Platform([200, 900]), platform.Platform([250, 900])]
 
     def play(self):
         if not self.handle_events():
@@ -22,11 +24,23 @@ class Playing:
 
     def draw(self):
         self.cf.screen.fill((173, 216, 230))
-        self.platform = self.cf.screen_height
 
-        self.platformm.draw()
-        self.pl2.draw()
+        # platforms that are within the xy of the player
+        self.platform = []
+
+        player_pos = self.player.get_player_pos()
+
+        cur_floor = self.floor.check_entity_istop(player_pos.midbottom[0])
+        self.platform.append(cur_floor)
+        # temporary platforms
+        for p in self.tmp_plat:
+            p.draw()
+            # print(p.is_within_range_y(player_pos))
+            if p.is_within_range_x(player_pos.midbottom[0]):
+                self.platform.append(p)
+
         self.floor.draw()
+        print(self.platform)
 
         self.player.movement(self.platform)
         self.player.draw()

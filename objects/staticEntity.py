@@ -13,3 +13,15 @@ class StaticEntity:
 
     def draw(self):
         cf.screen.blit(self.texture, self.rect)
+
+    # check if the entity is in range horizontaly
+    def is_within_range_x(self, entity_x):
+        if self.rect.left <= entity_x <= self.rect.right:
+            return True
+        return False
+
+    # check if the entity is in range vertically
+    def is_within_range_y(self, entity_y):
+        if self.rect.top <= entity_y <= self.rect.bottom:
+            return True
+        return False

@@ -19,3 +19,8 @@ class Floor:
     def draw(self):
         for tile in self.floor:
             tile.draw()
+
+    def check_entity_istop(self, entity_x):
+        for tile in self.floor:
+            if tile.is_within_range_x(entity_x):
+                return tile
