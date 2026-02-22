@@ -19,7 +19,7 @@ class Playing:
 
     def draw(self):
         self.cf.screen.fill((173, 216, 230))
-        self.platform = self.cf.height
+        self.platform = self.cf.screen_height
         self.player.movement(self.platform)
         self.player.draw()
 

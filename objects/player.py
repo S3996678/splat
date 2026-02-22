@@ -19,10 +19,13 @@ class Player:
         if (self.player.y + self.player.height) < platform and not self.in_air:
             self.player.y += self.cf.gravity_pull_speed
 
-        if keys[pg.K_a]:  # left
+        if keys[pg.K_a] and self.player.x > 0:  # left
             self.player.x -= self.cf.player_speed
 
-        if keys[pg.K_d]:  # Right
+        if (
+            keys[pg.K_d]
+            and (self.player.x + self.cf.player_width) < self.cf.screen_width
+        ):  # Right
             self.player.x += self.cf.player_speed
 
         if keys[pg.K_SPACE] and (
@@ -31,7 +34,6 @@ class Player:
             self.player.y -= self.cf.player_jump_speed
             self.in_air = True
             self.jump_threashold = platform - self.cf.jump_threashold
-            print(self.jump_threashold, platform, self.player.y)
 
         if self.in_air:  # keep jumping
             self.player.y -= self.cf.player_jump_speed
