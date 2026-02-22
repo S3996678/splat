@@ -1,6 +1,6 @@
 import pygame as pg
 import config
-from objects import player
+from objects import player, platform, floor
 
 
 class Playing:
@@ -9,6 +9,9 @@ class Playing:
         self.clock = pg.time.Clock()
         self.cf = config.Config()
         self.player = player.Player()
+        self.platformm = platform.Platform([200, 200])
+        self.pl2 = platform.Platform([249, 200])
+        self.floor = floor.Floor(1300)
 
     def play(self):
         if not self.handle_events():
@@ -20,6 +23,11 @@ class Playing:
     def draw(self):
         self.cf.screen.fill((173, 216, 230))
         self.platform = self.cf.screen_height
+
+        self.platformm.draw()
+        self.pl2.draw()
+        self.floor.draw()
+
         self.player.movement(self.platform)
         self.player.draw()
 
