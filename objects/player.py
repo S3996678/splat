@@ -9,39 +9,51 @@ class Player:
         self.player = self.cf.player
         self.in_air = False
         self.jump_threashold = 0
+        self.cur_platform = None  # store current platform player is on
 
     def draw(self):
         self.cf.screen.blit(self.cf.player_img, self.player)
 
     def movement(self, platform):
+        keys = pg.key.get_pressed()
 
-        keys = pg.key.get_pressed()  # gravity
-        for p in platform:
-            if not self.player.bottom >= p.rect.top and not self.in_air:
-                self.player.y += self.cf.gravity_pull_speed
-
-        if keys[pg.K_a] and self.player.x > 0:  # left
+        # moving left logic
+        if keys[pg.K_a] and self.player.left > 0:
             self.player.x -= self.cf.player_speed
-
-        if (
-            keys[pg.K_d]
-            and (self.player.x + self.cf.player_width) < self.cf.screen_width
-        ):  # Right
+            for p in platform:
+                if self.player.colliderect(p.rect):
+                    self.player.left = p.rect.right
+        # moving right logic
+        if keys[pg.K_d] and self.player.right < self.cf.screen_width:
             self.player.x += self.cf.player_speed
+            for p in platform:
+                if self.player.colliderect(p.rect):
+                    self.player.right = p.rect.left
 
-        for p in platform:
-            if keys[pg.K_SPACE] and (
-                (self.player.y + self.player.height) >= p.rect.top
-            ):  # start jump if on platform
-                self.player.y -= self.cf.player_jump_speed
-                self.in_air = True
-                self.jump_threashold = p.rect.top - self.cf.jump_threashold
-
-        if self.in_air:  # keep jumping
+        # if in air go until reaching threashold else go down
+        if self.in_air:
             self.player.y -= self.cf.player_jump_speed
-        # if reached top of jump stop
-        if (self.player.y + self.player.height) <= self.jump_threashold:
-            self.in_air = False
+            if self.player.bottom <= self.jump_threashold:
+                self.in_air = False
+        else:
+            self.player.y += self.cf.gravity_pull_speed
+
+        is_supported = False
+        # go through all platforms and if collided with an object and in air it's the ceiling else it's the floor
+        for p in platform:
+            if self.player.colliderect(p.rect):
+                if self.in_air:
+                    self.player.top = p.rect.bottom
+                    self.in_air = False
+                else:
+                    self.player.bottom = p.rect.top
+                    is_supported = True
+                    self.cur_platform = p
+
+        # if on ground then jump
+        if keys[pg.K_SPACE] and is_supported:
+            self.in_air = True
+            self.jump_threashold = self.player.bottom - self.cf.jump_threashold
 
     def get_player_pos(self):
         return self.player
