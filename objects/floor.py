@@ -4,14 +4,17 @@ from .platform import Platform
 
 
 class Floor:
-    def __init__(self, tile_num):
+    def __init__(self, tile_num, size):
         self.floor = []
+        width = size[0]
+        height = size[1]
         for i in range(tile_num):
             tile = Platform(
                 [
-                    i * (cf.platform_size_xy - 1),
-                    cf.screen_height - (cf.platform_size_xy - 3),
+                    i * (width - 1),
+                    cf.screen_height - (height - 3),
                 ],
+                size,
                 cf.floor_img,
             )
             self.floor.append(tile)

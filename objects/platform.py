@@ -4,5 +4,5 @@ from .staticEntity import StaticEntity
 
 
 class Platform(StaticEntity):
-    def __init__(self, position, texture=cf.platform_img):
-        super().__init__(position, texture)
+    def __init__(self, position, size, texture=cf.platform_img):
+        super().__init__(position, size, texture)

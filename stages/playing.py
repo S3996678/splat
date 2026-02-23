@@ -9,9 +9,9 @@ class Playing:
         self.clock = pg.time.Clock()
         self.cf = config.Config()
         self.player = player.Player()
-        self.platformm = platform.Platform([200, 200])
-        self.pl2 = platform.Platform([249, 200])
-        self.floor = floor.Floor(1300)
+        self.platformm = platform.Platform([200, 200], [50, 50])
+        self.pl2 = platform.Platform([249, 200], [50, 50])
+        self.floor = floor.Floor(1300, [50, 50])
 
     def play(self):
         if not self.handle_events():

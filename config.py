@@ -35,14 +35,9 @@ class Config:
     jump_threashold = (7 / 36) * screen_height
 
     # platform
-    platform_size_xy = 50
     tmp_platform_img = pg.image.load("./assets/images/platform.png").convert_alpha()
-    content_rect = tmp_platform_img.get_bounding_rect()
-    cropped_img = tmp_platform_img.subsurface(content_rect)
-    platform_img = pg.transform.scale(cropped_img, (platform_size_xy, platform_size_xy))
+    platform_img = tmp_platform_img.subsurface(tmp_platform_img.get_bounding_rect())
 
     # floor
     tmp_floor_img = pg.image.load("./assets/images/floor.png").convert_alpha()
-    content_rect = tmp_floor_img.get_bounding_rect()
-    cropped_img = tmp_floor_img.subsurface(content_rect)
-    floor_img = pg.transform.scale(cropped_img, (platform_size_xy, platform_size_xy))
+    floor_img = tmp_floor_img.subsurface(tmp_floor_img.get_bounding_rect())

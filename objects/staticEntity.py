@@ -3,9 +3,9 @@ from config import Config as cf
 
 
 class StaticEntity:
-    def __init__(self, position, texture):
+    def __init__(self, position, size, texture):
         self.postion = position
-        self.texture = texture
+        self.texture = pg.transform.scale(texture, (int(size[0]), int(size[1])))
         # set platform with placement
         self.rect = self.texture.get_rect(topleft=position)
         # set mask for the rendering
