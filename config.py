@@ -46,3 +46,9 @@ class Config:
     content_rect = tmp_floor_img.get_bounding_rect()
     cropped_img = tmp_floor_img.subsurface(content_rect)
     floor_img = pg.transform.scale(cropped_img, (platform_size_xy, platform_size_xy))
+
+    # bullet
+    bullet_size = player_height / 3
+    bullet_img = pg.image.load("./assets/images/bullet.png").convert_alpha()
+    bullet_img = pg.transform.scale(bullet_img, (bullet_size, bullet_size))
+    bullet_speed = 5

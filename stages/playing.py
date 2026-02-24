@@ -1,6 +1,6 @@
 import pygame as pg
 import config
-from objects import player, platform, floor
+from objects import player, platform, floor, bullet
 
 
 class Playing:
@@ -8,9 +8,14 @@ class Playing:
         pass
         self.clock = pg.time.Clock()
         self.cf = config.Config()
+        # player
         self.player = player.Player()
         # flooring
         self.floor = floor.Floor(1300)
+
+        self.bullet = bullet.Bullet()
+        self.bullet.shoot(400, 400, "r")
+        self.bullet.shoot(600, 600, "l")
 
     def play(self):
         if not self.handle_events():
@@ -24,6 +29,9 @@ class Playing:
 
         # platforms that are within the xy of the player
         self.platform = []
+
+        self.bullet.update()
+        self.bullet.draw()
 
         player_pos = self.player.get_player_pos()
 
