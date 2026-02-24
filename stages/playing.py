@@ -22,10 +22,17 @@ class Playing:
 
     def draw(self):
         self.cf.screen.fill((173, 216, 230))
-        self.platform = self.cf.screen_height
 
-        self.platformm.draw()
-        self.pl2.draw()
+        # platforms that are within the xy of the player
+        self.platform = []
+
+        player_pos = self.player.get_player_pos()
+
+        cur_floor = self.floor.check_entity_istop(player_pos.midbottom[0])
+        self.platform.append(cur_floor)
+        # temporary platforms
+        self.platform = [cur_floor]
+
         self.floor.draw()
 
         self.player.movement(self.platform)
