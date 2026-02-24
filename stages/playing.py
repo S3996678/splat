@@ -1,6 +1,6 @@
 import pygame as pg
 import config
-from objects import player, platform, floor
+from objects import player, platform, floor, map
 
 
 class Playing:
@@ -12,6 +12,9 @@ class Playing:
         self.platformm = platform.Platform([200, 200], [50, 50])
         self.pl2 = platform.Platform([249, 200], [50, 50])
         self.floor = floor.Floor(1300, [50, 50])
+        self.map = map.Map()
+        self.map.create_map(1000, 500, 20, 10)
+        self.map.populate_map([[2, 5], [3, 5]])
 
     def play(self):
         if not self.handle_events():
@@ -26,11 +29,15 @@ class Playing:
         # platforms that are within the xy of the player
         self.platform = []
 
+        self.map.draw()
+
+        self.platformm.draw()
         player_pos = self.player.get_player_pos()
 
         cur_floor = self.floor.check_entity_istop(player_pos.midbottom[0])
         self.platform.append(cur_floor)
         # temporary platforms
+
         self.platform = [cur_floor]
 
         self.floor.draw()

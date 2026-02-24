@@ -7,8 +7,8 @@ class Config:
     print("called")
 
     info = pg.display.Info()
-    screen_width = int(3 * info.current_w / 4)
-    screen_height = int(3 * info.current_h / 4)
+    screen_width = 1000
+    screen_height = 500
     screen = pg.display.set_mode((screen_width, screen_height))
     print(screen_height, screen_width)
 
