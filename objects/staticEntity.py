@@ -11,6 +11,7 @@ class StaticEntity:
         # set mask for the rendering
         self.mask = pg.mask.from_surface(self.texture)
 
+    # draw platform
     def draw(self):
         cf.screen.blit(self.texture, self.rect)
 

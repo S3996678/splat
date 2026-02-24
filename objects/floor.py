@@ -16,10 +16,12 @@ class Floor:
             )
             self.floor.append(tile)
 
+    # draw the floor
     def draw(self):
         for tile in self.floor:
             tile.draw()
 
+    # check if entity(player) is on top
     def check_entity_istop(self, entity_x):
         for tile in self.floor:
             if tile.is_within_range_x(entity_x):
