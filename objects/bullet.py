@@ -18,8 +18,13 @@ class Bullet:
 
     def update(self):
         # go through all bullets and update their position them according to the direction
-        for bullet in self.bullets:
+        for bullet in self.bullets[:]:
             if bullet[1] == "r":
                 bullet[0].x += cf.bullet_speed
             elif bullet[1] == "l":
                 bullet[0].x -= cf.bullet_speed
+
+            offscreen = cf.screen_width < bullet[0].right or bullet[0].x < 0
+
+            if offscreen:
+                self.bullets.remove(bullet)

@@ -1,5 +1,5 @@
 import pygame as pg
-import config
+from config import Config as cf
 from objects import player, platform, floor, bullet
 
 
@@ -7,11 +7,11 @@ class Playing:
     def __init__(self):
         pass
         self.clock = pg.time.Clock()
-        self.cf = config.Config()
+        self.cf = cf
         # player
         self.player = player.Player()
         # flooring
-        self.floor = floor.Floor(1300)
+        self.floor = floor.Floor(30)
 
         self.bullet = bullet.Bullet()
         self.bullet.shoot(400, 400, "r")
