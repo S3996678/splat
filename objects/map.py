@@ -11,10 +11,11 @@ class Map:  # only holds a method now and cannot be initiated
 
         self.grid_block_height = window_y_height / y_axis_split_ratio
         self.grid_block_width = window_x_length / x_axis_split_ratio
-        rows, cols = y_axis_split_ratio, x_axis_split_ratio
+        self.screen_height = window_y_height
+        self.screen_width = window_x_length
         self.grid = []
-        #self.platforms = []
 
+        rows, cols = y_axis_split_ratio, x_axis_split_ratio
         for _ in range(rows):
             row = [0] * cols
             self.grid.append(row)
@@ -23,17 +24,19 @@ class Map:  # only holds a method now and cannot be initiated
     
 
 
-    def populate_map(self, coordinates):
-        self.platform_list = []
-        for i,row in enumerate(coordinates):
+    def populate_map(self, populated_grid):
+        self.platform_list = []#store platform instance to later render
+
+        for i,row in enumerate(populated_grid):
+            print("row: ",row, ", index: ",i)
             for j,col in enumerate(row):
                 if col == 1:
-                    x_position = i * self.grid_block_width
-                    y_position = j * self.grid_block_height
-                    platform_instance = platform.Platform([x_position, y_position], [self.grid_block_width, self.grid_block_height])
+                    row_position = self.screen_height - (i * self.grid_block_height)#this impliments ground up logic
+                    col_position = j * self.grid_block_width#impliments start to finish position
+                    platform_instance = platform.Platform([col_position, row_position], [self.grid_block_width, self.grid_block_height])
                     self.platform_list.append(platform_instance)
 
 
-    def draw_platforms(self):
+    def draw_platforms(self):#visually render each platform at selected position
         for p in self.platform_list:
             p.draw()

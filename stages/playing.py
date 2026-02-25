@@ -9,12 +9,11 @@ class Playing:
         self.clock = pg.time.Clock()
         self.cf = config.Config()
         self.player = player.Player()
-        #self.platformm = platform.Platform([200, 200], [50, 50])
-        #self.pl2 = platform.Platform([249, 200], [50, 50])
         self.floor = floor.Floor(1300, [50, 50])
         self.map = map.Map()
         grid = self.map.create_map(1000, 500, 20, 10)
-        grid[9][2] = 1
+        grid[3][16] = 1 #y,x 9 blocks from the bottom up and 19 blocks from the start
+        grid[3][15] = 1
         self.map.populate_map(grid)
         
 
@@ -33,7 +32,6 @@ class Playing:
 
         self.map.draw_platforms()
 
-        #self.platformm.draw()
         player_pos = self.player.get_player_pos()
 
         cur_floor = self.floor.check_entity_istop(player_pos.midbottom[0])
