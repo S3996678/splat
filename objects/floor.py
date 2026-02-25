@@ -11,7 +11,7 @@ class Floor:
         for i in range(tile_num):
             tile = Platform(
                 [
-                    i * (width - 1),
+                    i * (width),
                     cf.screen_height - (height - 3),
                 ],
                 size,
