@@ -11,11 +11,12 @@ class Playing:
         # player
         self.player = player.Player()
         # flooring
-        self.floor = floor.Floor(30)
+        self.floor = floor.Floor(300)
 
         self.bullet = bullet.Bullet()
-        self.bullet.shoot(400, 400, "r")
-        self.bullet.shoot(600, 600, "l")
+
+        # store last shot time to control fire rate
+        self.last_shot = pg.time.get_ticks()
 
     def play(self):
         if not self.handle_events():
@@ -53,4 +54,22 @@ class Playing:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return False
+
+        mouse_button = pg.mouse.get_pressed()
+        current_time = pg.time.get_ticks()
+        # if player right clicks and it's been long enough since last shot, shoot and update the self.last_shot
+        if mouse_button[0] and (current_time - self.last_shot) > cf.rate_of_fire_delay:
+            self.last_shot = current_time
+            mouse_pos = pg.mouse.get_pos()
+            player_pos = self.player.get_player_pos()
+            # if the mouse pos is to the right set bullet direction to right and if left vice versa
+            bullet_direction = "r" if player_pos.x < mouse_pos[0] else "l"
+            # shoot bullet according to the bullet direction
+            if bullet_direction == "r":
+                self.bullet.shoot(
+                    player_pos.right, player_pos.centery, bullet_direction
+                )
+            else:
+                self.bullet.shoot(player_pos.left, player_pos.centery, bullet_direction)
+
         return True

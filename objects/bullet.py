@@ -11,6 +11,7 @@ class Bullet:
     def shoot(self, pos_x, pos_y, direction):
         bullet = pg.Rect(pos_x, pos_y, cf.bullet_size, cf.bullet_size)
         self.bullets.append([bullet, direction])
+        cf.shooting_sound.play()
 
     def draw(self):
         for bullet in self.bullets:

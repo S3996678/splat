@@ -4,6 +4,7 @@ import pygame as pg
 class Config:
 
     pg.init()
+    pg.mixer.init()
     print("called")
 
     info = pg.display.Info()
@@ -51,4 +52,6 @@ class Config:
     bullet_size = player_height / 3
     bullet_img = pg.image.load("./assets/images/bullet.png").convert_alpha()
     bullet_img = pg.transform.scale(bullet_img, (bullet_size, bullet_size))
-    bullet_speed = 5
+    bullet_speed = 9
+    rate_of_fire_delay = 1000  # higher means more delay
+    shooting_sound = pg.mixer.Sound("./assets/audio/shooting_sound.mp3")
