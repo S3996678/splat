@@ -15,11 +15,13 @@ class Playing:
             cf.screen_height,
             cf.grid_split_ratio_x,
             cf.grid_split_ratio_y,
+            cf.map_block_length
         )
         grid[3][16] = 1  # y,x 9 blocks from the bottom up and 19 blocks from the start
         grid[3][15] = 1
         grid[9][19] = 1
         self.map.populate_map(grid)
+        
         self.floor = self.map.get_floor()
         self.platform_list = self.map.get_platforms()
 
@@ -40,16 +42,16 @@ class Playing:
 
         player_pos = self.player.get_player_pos()
 
-        cur_floor = self.floor.check_entity_istop(player_pos.midbottom[0])
+        cur_floor = self.map.check_entity_istop(player_pos.midbottom[0])
 
         self.platform.append(cur_floor)
         # temporary platforms
 
         self.platform = [cur_floor]
 
-        self.floor.draw()
+        #self.floor.draw()
 
-        self.player.movement(self.platform)
+        self.player.movement(self.platform, self.platform_list)
         self.player.draw()
 
         pg.display.flip()

@@ -14,7 +14,7 @@ class Player:
     def draw(self):
         self.cf.screen.blit(self.cf.player_img, self.player)
 
-    def movement(self, platform):
+    def movement(self, platform, platforms):
         keys = pg.key.get_pressed()
 
         # moving left logic
@@ -23,12 +23,17 @@ class Player:
             for p in platform:
                 if self.player.colliderect(p.rect):
                     self.player.left = p.rect.right
-        # moving right logic
-        if keys[pg.K_d] and self.player.right < self.cf.screen_width:
+
+        # moving right logic with barier at the end of map
+        if keys[pg.K_d] and self.player.right < (3 *self.cf.screen_width / 5):
             self.player.x += self.cf.player_speed
             for p in platform:
                 if self.player.colliderect(p.rect):
                     self.player.right = p.rect.left
+
+        if keys[pg.K_d] and self.player.x >= (2 *self.cf.screen_width / 5):
+            for p in platforms:
+                p.rect.x -= (self.cf.player_speed * 2)
 
         # if in air go until reaching threashold else go down
         if self.in_air:
@@ -54,6 +59,8 @@ class Player:
         if keys[pg.K_SPACE] and is_supported:
             self.in_air = True
             self.jump_threashold = self.player.bottom - self.cf.jump_threashold
+        
+
 
     def get_player_pos(self):
         return self.player
